@@ -1,3 +1,4 @@
+import { TodoItem } from "../TodoItem/TodoItem";
 import "./TodoList.css";
 
 export const TodoList = (props) => {
@@ -7,11 +8,7 @@ export const TodoList = (props) => {
 
 			{!props?.todos?.length && <p className="todo-list-empty">There aren't taks to show</p>}
 			{props?.todos?.map((todo) => {
-				return (
-					<div key={todo.id} className="todo">
-						{todo.text}
-					</div>
-				);
+				return <TodoItem key={todo.id} toggleTodo={props.toggleTodo} todo={todo} />;
 			})}
 		</div>
 	);
