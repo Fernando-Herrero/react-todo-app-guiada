@@ -6,6 +6,7 @@ import { TodoForm } from "./components/TodoForm/TodoForm";
 import { TodoList } from "./components/TodoList/TodoList";
 import { Favorites } from "./components/Favorites/Favorites";
 import { storage } from "./helpers/storage";
+import { Footer } from "./components/Footer/Footer";
 
 const STORAGE_TODOS_KEY = "todos";
 
@@ -80,23 +81,33 @@ export const App = () => {
 			<Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
 			<h1 className="app-title">📝 My To-Do List</h1>
 
-			{activeTab === Tabs.TODOS && (
-				<TodoList
-					onToggleTodo={onToggleTodo}
-					onDeleteTodo={onDeleteTodo}
-					onToggleFavorite={onToggleFavorite}
-					todos={todos}
+			<div className="main-content">
+				{activeTab === Tabs.TODOS && (
+					<TodoList
+						onToggleTodo={onToggleTodo}
+						onDeleteTodo={onDeleteTodo}
+						onToggleFavorite={onToggleFavorite}
+						todos={todos}
+					/>
+				)}
+				{activeTab === Tabs.FAVORITES && (
+					<Favorites
+						todos={todos}
+						onToggleTodo={onToggleTodo}
+						onDeleteTodo={onDeleteTodo}
+						onToggleFavorite={onToggleFavorite}
+					/>
+				)}
+				{activeTab === Tabs.NEW_TODO && <TodoForm addTodo={addTodo} />}
+			</div>
+			{
+				<Footer
+					onReset={() => {
+						setTodos([]);
+						setActiveTab(Tabs.TODOS);
+					}}
 				/>
-			)}
-			{activeTab === Tabs.FAVORITES && (
-				<Favorites
-					todos={todos}
-					onToggleTodo={onToggleTodo}
-					onDeleteTodo={onDeleteTodo}
-					onToggleFavorite={onToggleFavorite}
-				/>
-			)}
-			{activeTab === Tabs.NEW_TODO && <TodoForm addTodo={addTodo} />}
+			}
 		</div>
 	);
 };
