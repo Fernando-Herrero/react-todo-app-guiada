@@ -49,3 +49,9 @@ button {
 	padding: 0.5rem 1rem;
 	cursor: pointer;
 }
+
+@media (width <= 500px) {
+	.app-container {
+		height: auto;
+	}
+}
