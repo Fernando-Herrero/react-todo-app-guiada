@@ -58,3 +58,10 @@ button:hover {
 .delete-btn {
 	color: crimson;
 }
+
+@media (width <= 500px) {
+	.todo-item {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}
