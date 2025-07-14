@@ -8,7 +8,15 @@ export const TodoList = (props) => {
 
 			{!props?.todos?.length && <p className="todo-list-empty">There aren't taks to show</p>}
 			{props?.todos?.map((todo) => {
-				return <TodoItem key={todo.id} toggleTodo={props.toggleTodo} todo={todo} />;
+				return (
+					<TodoItem
+						key={todo.id}
+						todo={todo}
+						onToggleTodo={props.onToggleTodo}
+						onDeleteTodo={props.onDeleteTodo}
+						onToggleFavorite={props.onToggleFavorite}
+					/>
+				);
 			})}
 		</div>
 	);

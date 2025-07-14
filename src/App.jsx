@@ -44,17 +44,37 @@ export const App = () => {
 		setTodos((prev) => [...prev, newTodo]);
 	};
 
-	const toggleTodo = (id) => {
+	const onToggleTodo = (id) => {
 		const updatedTodos = todos.map((todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo));
 
 		setTodos(updatedTodos);
 	};
+
+	const onToggleFavorite = (id) => {
+		const updatedTodos = todos.map((todo) => (todo.id === id ? { ...todo, favorite: !todo.favorite } : todo));
+
+		setTodos(updatedTodos);
+	};
+
+	const onDeleteTodo = (id) => {
+		const filtered = todos.filter((todo) => todo.id !== id);
+
+		setTodos(filtered);
+	};
+
 	return (
 		<div className="app-container">
 			<Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
 			<h1 className="app-title">📝 My To-Do List</h1>
 
-			{activeTab === Tabs.TODOS && <TodoList toggleTodo={toggleTodo} todos={todos} />}
+			{activeTab === Tabs.TODOS && (
+				<TodoList
+					onToggleTodo={onToggleTodo}
+					onDeleteTodo={onDeleteTodo}
+					onToggleFavorite={onToggleFavorite}
+					todos={todos}
+				/>
+			)}
 			{activeTab === Tabs.FAVORITES && <h2>Tab: Favorites</h2>}
 			{activeTab === Tabs.NEW_TODO && <TodoForm addTodo={addTodo} />}
 		</div>
