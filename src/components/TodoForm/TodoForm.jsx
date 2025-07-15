@@ -39,7 +39,7 @@ export const TodoForm = ({ addTodo }) => {
 				<form className="todo-form">
 					<input
 						type="text"
-						className="todo-input"
+						className={`todo-input ${error ? "input-error" : ""}`}
 						name="todoText"
 						value={form.todoText}
 						onChange={onInputChange}
