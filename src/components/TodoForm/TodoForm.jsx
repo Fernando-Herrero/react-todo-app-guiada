@@ -5,11 +5,14 @@ const INITIAL_FORM_STATE = { todoText: "" };
 
 export const TodoForm = ({ addTodo }) => {
 	const [form, setForm] = useState(INITIAL_FORM_STATE);
+	const [error, setError] = useState(false);
 
 	const onFormSubmit = (event) => {
 		event.preventDefault();
 
-		if (!form.todoText) return console.log("Fill the text input!");
+		if (!form.todoText || form.todoText?.trim() === "") {
+			setError(true);
+		}
 
 		const newTodo = {
 			text: form.todoText,
@@ -19,13 +22,14 @@ export const TodoForm = ({ addTodo }) => {
 			done: false,
 		};
 
-		console.log("Form sent", newTodo);
-
 		addTodo(newTodo);
 		setForm(INITIAL_FORM_STATE);
 	};
 
-	const onInputChange = ({ target: { name, value } }) => setForm((prev) => ({ ...prev, [name]: value }));
+	const onInputChange = ({ target: { name, value } }) => {
+		setError(false);
+		setForm((prev) => ({ ...prev, [name]: value }));
+	};
 
 	return (
 		<>
@@ -45,6 +49,8 @@ export const TodoForm = ({ addTodo }) => {
 						Add
 					</button>
 				</form>
+
+				{error && <p className="error-message">⚠️ Please, write a task</p>}
 			</div>
 		</>
 	);
